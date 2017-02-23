@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Future.</title>
+
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      background: #eee url('gfx/bgp.jpg') no-repeat fixed center top;
+      background-size: cover;
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      color: #37474f;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    @keyframes startup {
+      0% { background-color: rgba(0, 0, 0, 1); }
+      100% { background-color: rgba(0, 0, 0, 0); }
+    }
+
+    @keyframes startup2 {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    body {
+      animation: 1s startup;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    .content {
+      padding: 10px 20px;
+      width: 1000px;
+      min-height: 100%;
+      /*background-color: rgba(255, 255, 255, .5);*/
+      margin: 0 auto;
+      /*box-shadow: 0 0 100px rgba(0, 0, 0, .25);*/
+    }
+
+    .box {
+      animation: 2s startup2 .5s;
+      animation-fill-mode: forwards;
+      opacity: 0;
+      position: relative;
+      overflow: hidden;
+      transition: .5s;
+      width: 450px;
+      padding: 265px 20px 20px 20px;
+      background: rgba(255, 255, 255, 1) url('gfx/1p.jpg') no-repeat;
+      background-size: 100% auto;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, .1), 0 3px 5px rgba(0, 0, 0, .15);
+      float: left;
+      /*display: inline-block;*/
+      vertical-align: top;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      margin-right: 20px;
+      /*transform: rotateY(180deg);*/
+      /*transform-origin: top;*/
+
+      height: 450px;
+    }
+
+    .x2 {
+      height: 920px;
+    }
+
+    .box:before {
+      /*color: #fff;*/
+      transition: .5s;
+      /*transform: rotateY(180deg);*/
+      font-family: 'Material Icons';
+      background: linear-gradient(to bottom right, #fff, #ccc);
+      content: 'help';
+      font-size: 300px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding-left: 75px;
+      line-height: 450px;
+      z-index: 1;
+      cursor: pointer;
+    }
+
+    .box:hover:not(.active):before {
+      filter: sepia();
+    }
+
+    .box.x2:before {;
+      line-height: 920px;
+      font-size: 450px;
+      padding: 0;
+    }
+
+    .box.face:before {
+      content: 'person';
+    }
+
+    .box.code:before {
+      content: 'computer';
+    }
+
+    .box.chat:before {
+      content: 'chat';
+    }
+
+    .box div {
+      transition: .5s;
+      opacity: 0;
+      transform: scaleY(.1);
+    }
+    .box.active {
+      transform: none;
+      box-shadow: 0px 5px 7px rgba(0, 0, 0, .22), 0 10px 15px rgba(0, 0, 0, .25);
+      color: inherit;
+    }
+
+    .box.active div {
+      opacity: 1;
+      transform: none;
+    }
+
+    .box.active:before {
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(2);
+    }
+
+    h2 {
+      margin-top: 0;
+    }
+
+    p {
+      text-align: justify;
+    }
+
+    a {
+      transition: .5s ease;
+      padding: 10px 20px;
+      background-color: transparent;
+      border: 1px solid #03A9F4;
+      /*border-bottom-width: 5px;*/
+      border-radius: 2px;
+      text-transform: uppercase;
+      color: #03A9F4;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    a:hover {
+      background-color: #03A9F4;
+      border-color: #03A9F4;
+      color: #fff;
+    }
+
+    ul {
+      padding: 0 10px;
+      list-style: none;
+    }
+
+    li {
+      transition: .5s;
+      display: inline-block;
+      color: #fff;
+      margin: 2px 0px;
+      padding: 5px 10px;
+      border-radius: 4px;
+      background: #ff5722;
+      cursor: default;
+    }
+
+    li:hover {
+      background: #d84315;
+      color: #fff;
+    }
+
+    i.block {
+      display: inherit;
+      font-size: 14px !important;
+      line-height: 14px;
+    }
+
+    .line {
+      position: relative;
+      padding-left: 35px;
+      margin-left: 10px;
+      font-size: 18px;
+    }
+
+    .line:before {
+      position: absolute;
+      top: 2px;
+      left: 0;
+      font-family: 'Material Icons';
+    }
+
+    .line.mail:before {
+      content: 'mail';
+    }
+
+    .line.help:before {
+      content: 'help';
+    }
+
+    .line.phone:before {
+      content: 'phone';
+    }
+    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script>
+    window.onload = function() {
+      var boxes = document.getElementsByClassName("box");
+      for(i = 0; i < boxes.length; i ++) {
+        var activeClass = " active";
+        boxes[i].addEventListener("click", function() { 
+          if(this.className.indexOf(activeClass) == -1) {
+            this.className = this.className + activeClass;
+          }
+        });
+        boxes[i].addEventListener("dblclick", function() {
+          if(this.className.indexOf(activeClass) != -1) {
+            this.className = this.className.replace(activeClass, "");
+          }
+        });
+      }
+    }
+    </script>
+  </head>
+
+  <body>
+    <div class="content">
+
+      <div class="box x2 face">
+        <div>
+          <h2>Andrzej Nestoruk</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+          <a href="#">HexOrder.com</a>
+          <a href="#">PiwnaMapa.pl</a>
+        </div>
+      </div>
+      <div class="box code">
+        <div>
+          <h2>Skills</h2>
+          <p>
+            <ul>
+              <li>Scala</li>
+              <li>Java</li>
+              <li>PHP</li>
+              <li>Play Framework</li>
+              <li>JavaScript</li>
+              <li>Angular 2</li>
+              <li>UX</li>
+
+            </ul>
+          </p>
+        </div>
+      </div>
+      <div class="box chat">
+        <div>
+          <h2>Contact</h2>
+          <div class="line mail">and.nestoruk@gmail.com</div>
+          <div class="line phone">+48 889 889 592</div>
+        </div>
+      </div>
+      <div style="clear:both"></div>
+
+    </div>
+  </body>
+
+</html>
