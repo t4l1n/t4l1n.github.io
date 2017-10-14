@@ -278,6 +278,10 @@ i.block {
   content: '\f17e';
 }
 
+.line.repo:before {
+  content: '\f171';
+}
+
 .line.soundcloud:before {
   content: '\f1be';
 }
